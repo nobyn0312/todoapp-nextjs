@@ -21,7 +21,7 @@ export const addTodo = async(todo:Task):Promise<Task> =>{
   }
 
   // edit
-  export const editTodo = async(id:string, newText:string):Promise<Task> =>{
+  export const editTodo = async(id:string, newText:string) : Promise<Task> =>{
     const res = await fetch(`http://localhost:3001/tasks/${id}` ,{
       method: "POST",
         headers :{
