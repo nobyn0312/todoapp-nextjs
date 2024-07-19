@@ -1,6 +1,6 @@
 "use client"
 
-import { editTodo } from "@/api";
+import { deleteTodo, editTodo } from "@/api";
 import { Task } from "@/types";
 import React, { useState } from "react";
 
@@ -13,7 +13,6 @@ const Todo = ({ todo }: TaskProps) => {
   const [editedTaskTitle, setEditedTaskTitle] = useState(todo.text)
 
   const handleEdit = async () => {
-
     setIsEditing(true)
   }
 
@@ -21,8 +20,12 @@ const Todo = ({ todo }: TaskProps) => {
     // await editTodo(todo.id, editedTaskTitle)
     // setIsEditing(false)
     console.log("テスト")
-        await editTodo(todo.id, editedTaskTitle)
+    await editTodo(todo.id, editedTaskTitle)
+    setIsEditing(false);
+  }
 
+  const handleDelete =async () =>{
+    await deleteTodo(todo.id);
   }
 
   return (
@@ -32,8 +35,7 @@ const Todo = ({ todo }: TaskProps) => {
         <input type="text" className="mr-2 py-1 px-2 rounded border-gray-400 border"
           value={editedTaskTitle}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditedTaskTitle(e.target.value)}
-        />
-      ) : (
+        />      ) : (
         <span>{todo.text}</span>
       )}
       <div>
@@ -43,7 +45,7 @@ const Todo = ({ todo }: TaskProps) => {
         ) : (
           <button className="text-green-500 mr-3" onClick={handleEdit}>edit</button>
         )}
-        <button className="text-red-500 mr-3">delete</button>
+        <button className="text-red-500 mr-3" onClick={handleDelete}>delete</button>
       </div>
     </li>
   )
